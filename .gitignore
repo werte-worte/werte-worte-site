@@ -38,5 +38,11 @@ coverage.xml
 *.ipr
 *.iws
 
+### Django-related
+
 ## local settings files
 */settings/*local*.py
+
+### Django CMS
+# user uploads
+**/media/cms_page_media/
