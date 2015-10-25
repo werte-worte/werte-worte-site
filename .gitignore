@@ -37,3 +37,6 @@ coverage.xml
 ## File-based project format:
 *.ipr
 *.iws
+
+## local settings files
+*/settings/*local*.py
