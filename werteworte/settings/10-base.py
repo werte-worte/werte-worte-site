@@ -188,6 +188,19 @@ DATABASES = {
     }
 }
 
+# comment this if you do not have MemCache on your production machine
+if CONFIGURATION.startswith('prod'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+            'TIMEOUT': 6000,
+            # Chose a unique KEY_PREFIX to avoid clashes with other applications
+            # using the same cache (e.g. a shared memcache instance).
+            'KEY_PREFIX': 'wworte_' + CONFIGURATION[:4],
+        }
+    }
+
 MIGRATION_MODULES = {
     'djangocms_teaser': 'djangocms_teaser.migrations_django',
     'djangocms_inherit': 'djangocms_inherit.migrations_django',

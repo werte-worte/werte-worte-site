@@ -22,6 +22,11 @@ Pillow>=2.3
 django-sekizai>=0.7
 six
 
+# assuming MemCache and Postgres on the production system by default, so adding deps for it, but the choice
+# is ultimately yours
+psycopg2
+python-memcached
+
 # disqus integration; for now this ties us to python 2.7
 https://github.com/disqus/disqus-python/archive/master.zip?1445783972.8933501
 djangocms-disqus
