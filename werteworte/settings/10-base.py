@@ -15,11 +15,14 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+# Use this value to (prefix-)match when you want to differentiate dev/test/production
+CONFIGURATION = os.environ.get('DJANGO_CONFIGURATION', 'development').lower()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# Hence, this value must be overwritten in a local settings split file (e.g. 90-local.py)
 SECRET_KEY = 'x^c-1@1zih=u32$5^r$ptr@!p^oliwdg1kpb#6)^*^d5s-38sk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -173,6 +176,7 @@ CMS_PERMISSION = True
 
 CMS_PLACEHOLDER_CONF = {}
 
+# One will typically overwrite this in a local settings split file for Postgres config
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
