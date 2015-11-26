@@ -12,5 +12,4 @@ We adopted the [ordered list of split settings files]
 `werteworte/settings/90-local.py` to the project dir (or symlink it) to give confidential information
 (passwords, API tokens, password salt, the `SECRET`, ...)
 
-Also we look at the 
-`DJANGO_CONFIGURATION` environment variable matching `dev*`, `test` and `prod` to adapt some settings.
+Also we look at the `DJANGO_CONFIGURATION` environment variable matching `dev*`, `test` and `prod*` to adapt some settings (e.g. used database, ẁhether to turn on `DEBUG`, ...).
