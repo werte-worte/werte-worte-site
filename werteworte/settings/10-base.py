@@ -26,11 +26,12 @@ CONFIGURATION = os.environ.get('DJANGO_CONFIGURATION', 'development').lower()
 SECRET_KEY = 'x^c-1@1zih=u32$5^r$ptr@!p^oliwdg1kpb#6)^*^d5s-38sk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-TEMPLATE_DEBUG = True
+if not CONFIGURATION.startswith("prod"):
+    DEBUG = True
+    TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ('*', )
 
 
 # Application definition
