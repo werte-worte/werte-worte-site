@@ -43,6 +43,12 @@ coverage.xml
 ## local settings files
 */settings/*local*.py
 
+## collected static files
+static/
+
 ### Django CMS
 # user uploads
 **/media/cms_page_media/
+
+#### Python-related
+.python-version
