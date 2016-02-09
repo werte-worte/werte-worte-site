@@ -5,10 +5,10 @@ DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 Django settings for werteworte project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
+https://docs.djangoproject.com/en/1.8/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -29,7 +29,6 @@ SECRET_KEY = 'x^c-1@1zih=u32$5^r$ptr@!p^oliwdg1kpb#6)^*^d5s-38sk'
 
 if not CONFIGURATION.startswith("prod"):
     DEBUG = True
-    TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ('*', )
 
@@ -46,12 +45,13 @@ WSGI_APPLICATION = 'werteworte.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+
 
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
+# https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'de'
 
@@ -65,7 +65,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -77,31 +77,39 @@ STATICFILES_DIRS = (
 )
 SITE_ID = 1
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader'
-)
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.csrf',
-    'django.core.context_processors.tz',
-    'sekizai.context_processors.sekizai',
-    'django.core.context_processors.static',
-    'cms.context_processors.cms_settings'
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'werteworte', 'templates'),],
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.debug',
+                'django.core.context_processors.request',
+                'django.core.context_processors.media',
+                'django.core.context_processors.csrf',
+                'django.core.context_processors.tz',
+                'sekizai.context_processors.sekizai',
+                'django.core.context_processors.static',
+                'cms.context_processors.cms_settings'
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.eggs.Loader'
+            ],
+        },
+    },
+]
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'werteworte', 'templates'),
-)
+if not CONFIGURATION.startswith("prod"):
+    TEMPLATES[0]['OPTIONS']['debug']='true'
 
 MIDDLEWARE_CLASSES = (
+    'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -132,6 +140,15 @@ INSTALLED_APPS = (
     'djangocms_text_ckeditor',
     'djangocms_style',
     'djangocms_column',
+    'filer',
+    'easy_thumbnails',
+    'cmsplugin_filer_image',
+    'cmsplugin_filer_file',
+    'cmsplugin_filer_folder',
+    'cmsplugin_filer_teaser',
+    'cmsplugin_filer_utils',
+    'cmsplugin_filer_video',
+    'cmsplugin_iframe',
     'djangocms_file',
     'djangocms_flash',
     'djangocms_googlemap',
@@ -143,6 +160,7 @@ INSTALLED_APPS = (
     'reversion',
     'werteworte'
 )
+
 
 LANGUAGES = (
     ## Customize this
@@ -205,11 +223,28 @@ if CONFIGURATION.startswith('prod'):
 MIGRATION_MODULES = {
     'djangocms_teaser': 'djangocms_teaser.migrations_django',
     'djangocms_inherit': 'djangocms_inherit.migrations_django',
-    'djangocms_picture': 'djangocms_picture.migrations_django',
     'djangocms_googlemap': 'djangocms_googlemap.migrations_django',
     'djangocms_style': 'djangocms_style.migrations_django',
     'djangocms_column': 'djangocms_column.migrations_django',
     'djangocms_file': 'djangocms_file.migrations_django',
     'djangocms_flash': 'djangocms_flash.migrations_django',
-    'djangocms_video': 'djangocms_video.migrations_django'
+    'djangocms_video': 'djangocms_video.migrations_django',
+    'cmsplugin_filer_file': 'cmsplugin_filer_file.migrations_django',
+    'cmsplugin_filer_video': 'cmsplugin_filer_video.migrations_django',
+    'cmsplugin_filer_image': 'cmsplugin_filer_image.migrations_django',
+    'cmsplugin_filer_folder': 'cmsplugin_filer_folder.migrations_django',
+    'cmsplugin_filer_teaser': 'cmsplugin_filer_teaser.migrations_django'
 }
+
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters'
+)
+
+# CMSPLUGIN_FILER_IMAGE_STYLE_CHOICES = (
+#   ('default', 'Default'),
+#   ('width-80', 'Scale to 80% of width'),
+# )
