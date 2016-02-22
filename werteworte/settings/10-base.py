@@ -139,11 +139,13 @@ INSTALLED_APPS = (
     'menus',
     'sekizai',
     'treebeard',
+    'bootstrapform',
     'djangocms_text_ckeditor',
     'djangocms_style',
     'djangocms_column',
     'filer',
     'easy_thumbnails',
+    'newsletter',
     'cmsplugin_filer_image',
     'cmsplugin_filer_file',
     'cmsplugin_filer_folder',
@@ -159,6 +161,7 @@ INSTALLED_APPS = (
     'djangocms_picture',
     'djangocms_teaser',
     'djangocms_video',
+    'djangocms_newsletter_subscription',
     'reversion',
     'werteworte'
 )
