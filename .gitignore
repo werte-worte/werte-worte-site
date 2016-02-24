@@ -45,6 +45,7 @@ coverage.xml
 
 ## collected static files
 static/
+media/
 
 ### Django CMS
 # user uploads
