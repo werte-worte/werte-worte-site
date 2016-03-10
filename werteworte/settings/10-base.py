@@ -166,6 +166,12 @@ INSTALLED_APPS = (
     'werteworte'
 )
 
+if CONFIGURATION.startswith("dev"):
+    INSTALLED_APPS += ('debug_toolbar',)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 LANGUAGES = (
     ## Customize this

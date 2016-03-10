@@ -1,5 +1,5 @@
-Django<1.9
-django-cms<3.3
+Django>=1.8,<1.9
+django-cms>=3.2,<3.3
 django-treebeard>=2.0
 django-filer>=0.9.12
 django-newsletter>=0.6
@@ -26,6 +26,10 @@ Pillow>=2.3
 django-sekizai>=0.7
 django-bootstrap-form>=3.2
 six
+
+# dev tools
+django-debug-toolbar>=1.4
+ipython
 
 # assuming MemCache and Postgres on the production system by default, so adding deps for it, but the choice
 # is ultimately yours

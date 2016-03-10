@@ -8,6 +8,10 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+import os
+
+CONFIGURATION = os.environ.get('DJANGO_CONFIGURATION', 'development').lower()
+
 admin.autodiscover()
 
 urlpatterns = i18n_patterns('',
@@ -26,3 +30,9 @@ if settings.DEBUG:
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve',  # NOQA
             {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
         ) + staticfiles_urlpatterns() + urlpatterns  # NOQA
+
+if CONFIGURATION.startswith("dev"):
+    import debug_toolbar
+    urlpatterns = patterns('',
+                            url(r'^__debug__/', include(debug_toolbar.urls)),
+                            ) + urlpatterns
