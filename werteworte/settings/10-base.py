@@ -109,7 +109,6 @@ if not CONFIGURATION.startswith("prod"):
     TEMPLATES[0]['OPTIONS']['debug']='true'
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.cache.UpdateCacheMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,7 +121,6 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 INSTALLED_APPS = (
