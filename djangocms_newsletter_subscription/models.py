@@ -8,7 +8,7 @@ from newsletter.models import Newsletter
 
 class NewsletterSubscription(CMSPlugin):
     """
-    A CSS Style Plugin
+    A Newsletter Subscription Form Plugin for 'newsletter'
     """
 
     target_newsletter = models.ForeignKey(Newsletter)
